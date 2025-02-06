@@ -1,2 +1,2 @@
 # ByteVault
-:O
+small package manager
