@@ -2,15 +2,16 @@ import tkinter as tk
 from tkinter import messagebox, simpledialog
 import os
 import zipfile
-import json
 import requests
 import subprocess
 
 # Define the directory where packages will be installed
 INSTALL_DIR = 'installed_packages'
 
-def download_and_install(package_url):
-    package_name = package_url.split("/")[-1].replace(".zip", "")
+def download_and_install(package_name):
+    # GitHub CDN URL for packages (use your own GitHub URL)
+    package_url = f"https://github.com/Fitsneezy/pcklib/raw/main/packages/{package_name}.zip"
+    
     zip_path = f"{package_name}.zip"
 
     try:
@@ -106,8 +107,8 @@ package_listbox.pack(pady=5)
 update_package_list()
 
 # Buttons
-tk.Button(root, text="Install Package", command=lambda: install(simpledialog.askstring("Install", "Enter package name:"))).pack(pady=5)
-tk.Button(root, text="Install from URL", command=lambda: download_and_install(simpledialog.askstring("Install from URL", "Enter package URL:"))).pack(pady=5)
+tk.Button(root, text="Install Package", command=lambda: download_and_install(simpledialog.askstring("Install", "Enter package name:"))).pack(pady=5)
+tk.Button(root, text="Install from URL", command=lambda: download_and_install(simpledialog.askstring("Install from URL", "Enter package name (GitHub CDN):"))).pack(pady=5)
 tk.Button(root, text="Remove Package", command=remove).pack(pady=5)
 tk.Button(root, text="Update Package", command=update_package).pack(pady=5)
 tk.Button(root, text="Exit", command=root.quit).pack(pady=5)
